@@ -166,7 +166,8 @@ if [ ! -e /etc/init.d/tomcat ]; then
   
   ln -s $TOMCAT_PATH/bin/daemon.sh /etc/init.d/tomcat
   sed -i '22a export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.55.x86_64 \
-	      #chkconfig:345 99 01 ' /etc/init.d/tomcat
+  	  export CATALINA_HOME=/usr/local/src/apache-tomcat-7.0.54 \
+	  #chkconfig:345 99 01 ' /etc/init.d/tomcat
   chown root:root /etc/init.d/tomcat
   chmod 755 /etc/init.d/tomcat
 fi 
