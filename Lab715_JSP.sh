@@ -98,7 +98,7 @@ chmod g+w $TOMCAT_PATH/webapps/ROOT/lab715_JSP
 # -p    :設定密碼
 # -d    :指定家目錄
 echo 'create user'
-useradd lab715_JSP -M -N -G tomcat -d $TOMCAT_PATH/webapps/ROOT/lab715_JSP -s "/sbin/nologin" 2> /dev/null
+useradd lab715_JSP -M -N -G tomcat -d $TOMCAT_PATH/webapps/ROOT/lab715_JSP  2> /dev/null
 # 設定密碼
 echo 'Dream' | passwd lab715_JSP --stdin > /dev/null
 
@@ -163,8 +163,10 @@ grant all on lab715_JSP.* to 'lab715_JSP'@'localhost' ;
 # 加入到開機自動執行
 # tomcat
 if [ ! -e /etc/init.d/tomcat ]; then
+  
   ln -s $TOMCAT_PATH/bin/daemon.sh /etc/init.d/tomcat
-  echo "#chkconfig:345 99 01" >> /etc/init.d/tomcat
+  sed -i '22a export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.55.x86_64 \
+	      #chkconfig:345 99 01 ' /etc/init.d/tomcat
   chown root:root /etc/init.d/tomcat
   chmod 755 /etc/init.d/tomcat
 fi 
